@@ -35,6 +35,12 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
+    // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
+    implementation 'io.jsonwebtoken:jjwt:0.12.5'
+    // https://mvnrepository.com/artifact/org.springframework/spring-websocket
+    implementation 'org.springframework:spring-websocket:6.1.9'
+    // https://mvnrepository.com/artifact/org.springframework/spring-messaging
+    implementation 'org.springframework:spring-messaging:6.1.9'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
