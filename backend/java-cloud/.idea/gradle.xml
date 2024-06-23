@@ -13,6 +13,14 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/auth" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/auth" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/eureka-server" />
         <option name="modules">
           <set>
@@ -25,6 +33,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/gateway" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/gateway/auth" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/gateway/auth" />
           </set>
         </option>
       </GradleProjectSettings>
