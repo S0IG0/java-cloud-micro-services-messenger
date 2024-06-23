@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37b9a411-fb1e-4953-8202-333b1d06e296" name="Changes" comment="(MJC-7)" />
+    <list default="true" id="37b9a411-fb1e-4953-8202-333b1d06e296" name="Changes" comment="feat(MJC-7)">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.properties" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +21,21 @@
     <projectState path="$PROJECT_DIR$/eureka-server">
       <ProjectState />
     </projectState>
+    <projectState path="$PROJECT_DIR$/gateway">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -29,9 +48,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2iGiZx8Hxl0KKc5YNBVxx7y8ooB" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -41,12 +60,14 @@
   "keyToString": {
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "1648",
-    "RequestMappingsPanelWidth1": "1647",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "feature/MJC-7-module-gateway",
     "jdk.selected.JAVA_MODULE": "21",
+    "last_opened_file_path": "D:/Projects/web/java-cloud-micro-services-messenger/backend/java-cloud/eureka-server",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -54,10 +75,17 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.EurekaServerApplication">
     <configuration name="EurekaServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="eureka-server.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="ru.soigo.eureka.server.EurekaServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="gateway.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ru.soigo.gateway.GatewayApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -72,6 +100,9 @@
       <option name="presentableId" value="Default" />
       <updated>1719123376296</updated>
       <workItem from="1719123377474" duration="1000000" />
+      <workItem from="1719124388035" duration="613000" />
+      <workItem from="1719125045989" duration="47000" />
+      <workItem from="1719125127354" duration="308000" />
     </task>
     <task id="LOCAL-00001" summary="feat(MJC-20): add settings for eureka server&#10;Add annotation(@EnableEurekaServer) for activate eureka server">
       <option name="closed" value="true" />
@@ -81,7 +112,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719124105944</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat(MJC-7): init gateway">
+      <option name="closed" value="true" />
+      <created>1719124595787</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1719124595787</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -103,6 +142,8 @@
     <MESSAGE value="feat(MJC-20): add settings for eureka server&#10;Add annotation(@EnableEurekaServer) for activate eureka server" />
     <MESSAGE value="feat(MJC-20)" />
     <MESSAGE value="(MJC-7)" />
-    <option name="LAST_COMMIT_MESSAGE" value="(MJC-7)" />
+    <MESSAGE value="feat(MJC-7)" />
+    <MESSAGE value="feat(MJC-7): init gateway" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(MJC-7): init gateway" />
   </component>
 </project>
