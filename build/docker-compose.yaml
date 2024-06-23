@@ -15,5 +15,11 @@ services:
     ports:
       - "5432:5432"
 
+  redis:
+    container_name: Redis
+    image: redis:7.0.5-alpine3.17
+    ports:
+      - "6379:6379"
+
 volumes:
   postgresql-data:
