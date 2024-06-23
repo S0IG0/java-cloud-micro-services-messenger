@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37b9a411-fb1e-4953-8202-333b1d06e296" name="Changes" comment="feat(MJC-7)">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.properties" afterDir="false" />
-    </list>
+    <list default="true" id="37b9a411-fb1e-4953-8202-333b1d06e296" name="Changes" comment="feat(MJC-7): add settings for gateway" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,7 +61,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feature/MJC-7-module-gateway",
+    "git-widget-placeholder": "feature/MJC-21-module-auth",
+    "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "21",
     "last_opened_file_path": "D:/Projects/web/java-cloud-micro-services-messenger/backend/java-cloud/eureka-server",
     "node.js.detected.package.eslint": "true",
@@ -75,6 +72,13 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
   <component name="RunManager" selected="Spring Boot.EurekaServerApplication">
     <configuration name="EurekaServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="eureka-server.main" />
@@ -103,6 +107,7 @@
       <workItem from="1719124388035" duration="613000" />
       <workItem from="1719125045989" duration="47000" />
       <workItem from="1719125127354" duration="308000" />
+      <workItem from="1719125445220" duration="815000" />
     </task>
     <task id="LOCAL-00001" summary="feat(MJC-20): add settings for eureka server&#10;Add annotation(@EnableEurekaServer) for activate eureka server">
       <option name="closed" value="true" />
@@ -120,7 +125,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719124595787</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat(MJC-7): add settings for gateway">
+      <option name="closed" value="true" />
+      <created>1719125633229</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1719125633229</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -142,8 +155,9 @@
     <MESSAGE value="feat(MJC-20): add settings for eureka server&#10;Add annotation(@EnableEurekaServer) for activate eureka server" />
     <MESSAGE value="feat(MJC-20)" />
     <MESSAGE value="(MJC-7)" />
-    <MESSAGE value="feat(MJC-7)" />
     <MESSAGE value="feat(MJC-7): init gateway" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(MJC-7): init gateway" />
+    <MESSAGE value="feat(MJC-7)" />
+    <MESSAGE value="feat(MJC-7): add settings for gateway" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(MJC-7): add settings for gateway" />
   </component>
 </project>
