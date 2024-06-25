@@ -46,11 +46,17 @@ public class UserServiceImpl implements UserService {
     final PasswordEncoder passwordEncoder;
     static final Set<Role> defaultRoles = Set.of(Role.ROLE_USER);
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return findByUsername(username);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User create(@NotNull User user) {
         user.setRoles(defaultRoles);
@@ -58,6 +64,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User findByUsername(String username) {
         return userRepository
@@ -65,6 +74,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("Not found username: " + username));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User changePassword(String username, String newRawPassword) {
         User user = findByUsername(username);
