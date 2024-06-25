@@ -46,10 +46,17 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/../.." value="feature/MJC-20-module-eureka-server" />
+        <entry key="$PROJECT_DIR$/../.." value="feature/MJC-9-role" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -61,6 +68,9 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2iGiZx8Hxl0KKc5YNBVxx7y8ooB" />
+  <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -74,7 +84,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "feature/MJC-21-module-auth",
+    "git-widget-placeholder": "feature/MJC-23-dependency-spring-security",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "21",
     "last_opened_file_path": "D:/Projects/web/java-cloud-micro-services-messenger/backend/java-cloud/eureka-server",
@@ -192,6 +202,9 @@
     <MESSAGE value="feat(MJC-7): add settings for gateway" />
     <MESSAGE value="feat(MJC-7)" />
     <MESSAGE value="feat(MJC-21): init auth module" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(MJC-21): init auth module" />
+    <MESSAGE value="feat: add UTF-8 encoding" />
+    <MESSAGE value="(MJC-9)" />
+    <MESSAGE value="(MJC-23)" />
+    <option name="LAST_COMMIT_MESSAGE" value="(MJC-23)" />
   </component>
 </project>
