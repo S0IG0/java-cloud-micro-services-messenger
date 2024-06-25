@@ -63,7 +63,7 @@ public class JwtAuthenticationConverter implements AuthenticationConverter {
             return null;
         }
 
-        String username = jwtService.getUsernameFromAccessToken(token);
+        String username = jwtService.getUsernameFromToken(token);
         if (username == null) {
             return null;
         }
