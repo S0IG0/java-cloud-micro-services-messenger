@@ -61,11 +61,8 @@ public class JwtServiceImpl implements JwtService {
      * {@inheritDoc}
      */
     @Override
-    public String getUsernameFromAccessToken(String access) {
-        if (!validateAccessToken(access)) {
-            return null;
-        }
-        return parseClaims(access).getSubject();
+    public String getUsernameFromToken(String token) {
+        return parseClaims(token).getSubject();
     }
 
     /**

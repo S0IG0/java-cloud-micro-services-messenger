@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.soigo.auth.exception.AlreadyUserException;
 import ru.soigo.auth.model.Role;
 import ru.soigo.auth.model.User;
 import ru.soigo.auth.repository.UserRepository;
@@ -59,6 +60,11 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User create(@NotNull User user) {
+
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new AlreadyUserException(String.format("Username: %s already exist", user.getUsername()));
+        }
+
         user.setRoles(defaultRoles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);

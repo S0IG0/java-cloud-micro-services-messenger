@@ -20,12 +20,12 @@ public interface JwtService {
     PairToken generatePairToken(User user);
 
     /**
-     * Extracts the username from the provided access token.
+     * Extracts the username from the provided access or refresh token.
      *
-     * @param access the access token.
-     * @return the username contained within the access token.
+     * @param token the access or refresh token.
+     * @return the username contained within the access or refresh token.
      */
-    String getUsernameFromAccessToken(String access);
+    String getUsernameFromToken(String token);
 
     /**
      * Generates a refresh token for the given user and unique identifier.
