@@ -2,6 +2,7 @@ package ru.soigo.auth.jwt.converter;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +41,7 @@ import ru.soigo.auth.jwt.service.JwtService;
  * @see JwtService
  * @see UserDetailsService
  */
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationConverter implements AuthenticationConverter {
@@ -57,6 +59,7 @@ public class JwtAuthenticationConverter implements AuthenticationConverter {
      */
     @Override
     public Authentication convert(HttpServletRequest request) {
+        log.info("Converting HTTP request to Authentication object");
         String token = tokenExtractor(request);
 
         if (!jwtService.validateAccessToken(token)) {
@@ -77,7 +80,7 @@ public class JwtAuthenticationConverter implements AuthenticationConverter {
         authenticationToken.setDetails(
                 new WebAuthenticationDetailsSource().buildDetails(request)
         );
-
+        log.debug("Authentication token created for user: {}", username);
         return authenticationToken;
     }
 
@@ -88,12 +91,16 @@ public class JwtAuthenticationConverter implements AuthenticationConverter {
      * @return the extracted JWT if present and correctly formatted, or {@code null} if the header is missing or invalid.
      */
     private @Nullable String tokenExtractor(@NotNull HttpServletRequest request) {
+        log.info("Extracting JWT from Authorization header");
         String headerValue = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (headerValue == null || !headerValue.startsWith(jwtHeaderStart + " ")) {
+            log.warn("Authorization header is missing or does not start with the expected prefix: {}", jwtHeaderStart);
             return null;
         }
 
-        return headerValue.replace(jwtHeaderStart + " ", "");
+        String token = headerValue.replace(jwtHeaderStart + " ", "");
+        log.debug("JWT extracted from header: {}", token);
+        return token;
     }
 }

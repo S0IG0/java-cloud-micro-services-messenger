@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.*;
 /**
  * Implementation of {@link JwtService} that handles JWT operations using the jjwt library.
  */
+@Slf4j
 @Service
 public class JwtServiceImpl implements JwtService {
     final Integer accessExpiration;
@@ -48,13 +50,16 @@ public class JwtServiceImpl implements JwtService {
      * {@inheritDoc}
      */
     @Override
-    public PairToken generatePairToken(User user) {
+    public PairToken generatePairToken(@NotNull User user) {
+        log.info("Generating pair token for user: {}", user.getUsername());
         UUID uuid = UUID.randomUUID();
-        return PairToken
+        PairToken pairToken = PairToken
                 .builder()
                 .access(generateAccessToken(user, uuid))
                 .refresh(generateRefreshToken(user, uuid))
                 .build();
+        log.debug("Generated pair token for user {}: {}", user.getUsername(), pairToken);
+        return pairToken;
     }
 
     /**
@@ -62,7 +67,10 @@ public class JwtServiceImpl implements JwtService {
      */
     @Override
     public String getUsernameFromToken(String token) {
-        return parseClaims(token).getSubject();
+        log.info("Extracting username from token: {}", token);
+        String username = parseClaims(token).getSubject();
+        log.debug("Extracted username from token: {}", username);
+        return username;
     }
 
     /**
@@ -70,11 +78,13 @@ public class JwtServiceImpl implements JwtService {
      */
     @Override
     public String generateRefreshToken(@NotNull User user, @NotNull UUID uuid) {
+        log.info("Generating refresh token for user: {}", user.getUsername());
         Map<String, Object> claims = new HashMap<>() {{
             put("tokenType", TypeToken.REFRESH.toString());
         }};
-
-        return generateToken(uuid, claims, user.getUsername(), refreshExpiration);
+        String refreshToken = generateToken(uuid, claims, user.getUsername(), refreshExpiration);
+        log.debug("Generated refresh token for user {}: {}", user.getUsername(), refreshToken);
+        return refreshToken;
     }
 
     /**
@@ -82,6 +92,7 @@ public class JwtServiceImpl implements JwtService {
      */
     @Override
     public String generateAccessToken(@NotNull User user, @NotNull UUID uuid) {
+        log.info("Generating access token for user: {}", user.getUsername());
         List<String> roles = user
                 .getAuthorities()
                 .stream()
@@ -93,8 +104,9 @@ public class JwtServiceImpl implements JwtService {
             put("userId", user.getId());
             put("tokenType", TypeToken.ACCESS.toString());
         }};
-
-        return generateToken(uuid, claims, user.getUsername(), accessExpiration);
+        String accessToken = generateToken(uuid, claims, user.getUsername(), accessExpiration);
+        log.debug("Generated access token for user {}: {}", user.getUsername(), accessToken);
+        return accessToken;
     }
 
     /**
@@ -102,7 +114,10 @@ public class JwtServiceImpl implements JwtService {
      */
     @Override
     public boolean validateAccessToken(String accessToken) {
-        return validateToken(accessToken, TypeToken.ACCESS);
+        log.info("Validating access token: {}", accessToken);
+        boolean isValid = validateToken(accessToken, TypeToken.ACCESS);
+        log.debug("Access token validation result: {}", isValid);
+        return isValid;
     }
 
     /**
@@ -110,7 +125,10 @@ public class JwtServiceImpl implements JwtService {
      */
     @Override
     public boolean validateRefreshToken(String refreshToken) {
-        return validateToken(refreshToken, TypeToken.REFRESH);
+        log.info("Validating refresh token: {}", refreshToken);
+        boolean isValid = validateToken(refreshToken, TypeToken.REFRESH);
+        log.debug("Refresh token validation result: {}", isValid);
+        return isValid;
     }
 
     /**
@@ -118,12 +136,15 @@ public class JwtServiceImpl implements JwtService {
      */
     @Override
     public Claims parseClaims(String token) {
-        return Jwts
+        log.info("Parsing claims from token");
+        Claims claims = Jwts
                 .parser()
                 .verifyWith(key)
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+        log.debug("Parsed claims from token: {}", claims);
+        return claims;
     }
 
     /**
@@ -141,7 +162,8 @@ public class JwtServiceImpl implements JwtService {
             @NotNull String username,
             @NotNull Integer expiration
     ) {
-        return Jwts
+        log.info("Generating token for username: {}, UUID: {}", username, uuid);
+        String token = Jwts
                 .builder()
                 .id(uuid.toString())
                 .claims(claims)
@@ -150,6 +172,8 @@ public class JwtServiceImpl implements JwtService {
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(key)
                 .compact();
+        log.debug("Generated token for username {}: {}", username, token);
+        return token;
     }
 
     /**
@@ -165,10 +189,14 @@ public class JwtServiceImpl implements JwtService {
      * @return {@code true} if the token is valid and the token type matches the expected type, {@code false} otherwise.
      */
     private boolean validateToken(@NotNull String token, @NotNull TypeToken typeToken) {
+        log.info("Validating token of type: {}", typeToken);
         try {
             Claims claims = parseClaims(token);
-            return claims.get("tokenType").toString().equals(typeToken.toString());
+            boolean isValid = claims.get("tokenType").toString().equals(typeToken.toString());
+            log.debug("Token validation result for type {}: {}", typeToken, isValid);
+            return isValid;
         } catch (JwtException | IllegalArgumentException exception) {
+            log.error("Token validation failed for type {}: {}", typeToken, exception.getMessage());
             return false;
         }
     }

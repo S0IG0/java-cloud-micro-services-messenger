@@ -2,6 +2,8 @@ package ru.soigo.auth.service.impl;
 
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import ru.soigo.auth.service.UserService;
  * authentication tokens using {@link JwtService} and {@link UserService}.
  * </p>
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -29,9 +32,12 @@ public class AuthServiceImpl implements AuthService {
      * {@inheritDoc}
      */
     @Override
-    public PairToken register(User user) {
+    public PairToken register(@NotNull User user) {
+        log.info("Registering user with username: {}", user.getUsername());
         User createUser = userService.create(user);
-        return jwtService.generatePairToken(createUser);
+        PairToken pairToken = jwtService.generatePairToken(createUser);
+        log.debug("Generated tokens for user {}: {}", user.getUsername(), pairToken);
+        return pairToken;
     }
 
     /**
@@ -39,13 +45,16 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     public PairToken login(String username, String rawPassword) {
+        log.info("User attempting to login with username: {}", username);
         User findUser = userService.findByUsername(username);
 
         if (!passwordEncoder.matches(rawPassword, findUser.getPassword())) {
+            log.warn("Invalid password for user: {}", username);
             throw new BadCredentialsException("Invalid password");
         }
-
-        return jwtService.generatePairToken(findUser);
+        PairToken pairToken = jwtService.generatePairToken(findUser);
+        log.debug("Generated tokens for user {}: {}", username, pairToken);
+        return pairToken;
     }
 
     /**
@@ -53,11 +62,15 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     public PairToken updatePairTokenByRefreshToken(String refreshToken) {
+        log.info("Updating pair token using refresh token");
         if (!jwtService.validateRefreshToken(refreshToken)) {
+            log.warn("Invalid refresh token provided");
             throw new JwtException("Invalid refresh token");
         }
         String username = jwtService.getUsernameFromToken(refreshToken);
         User findUser = userService.findByUsername(username);
-        return jwtService.generatePairToken(findUser);
+        PairToken pairToken = jwtService.generatePairToken(findUser);
+        log.debug("Generated new tokens for user {}: {}", username, pairToken);
+        return pairToken;
     }
 }

@@ -1,6 +1,7 @@
 package ru.soigo.auth.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,6 +41,7 @@ import java.util.Set;
  * @see UserRepository
  * @see PasswordEncoder
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -52,7 +54,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return findByUsername(username);
+        log.info("Loading user by username: {}", username);
+        UserDetails userDetails = findByUsername(username);
+        log.debug("Loaded user details by username: {}", userDetails.getUsername());
+        return userDetails;
     }
 
     /**
@@ -60,14 +65,18 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User create(@NotNull User user) {
+        log.info("Creating new user with username: {}", user.getUsername());
 
         if (userRepository.existsByUsername(user.getUsername())) {
+            log.warn("Attempt to create a user with an existing username: {}", user.getUsername());
             throw new AlreadyUserException(String.format("Username: %s already exist", user.getUsername()));
         }
 
         user.setRoles(defaultRoles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        User createdUser = userRepository.save(user);
+        log.debug("Created user with username: {}", createdUser.getUsername());
+        return createdUser;
     }
 
     /**
@@ -75,9 +84,15 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User findByUsername(String username) {
-        return userRepository
+        log.info("Finding user by username: {}", username);
+        User user = userRepository
                 .findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Not found username: " + username));
+                .orElseThrow(() -> {
+                    log.warn("Username not found: {}", username);
+                    return new UsernameNotFoundException("Not found username: " + username);
+                });
+        log.debug("Found user with username: {}", user.getUsername());
+        return user;
     }
 
     /**
@@ -85,8 +100,11 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User changePassword(String username, String newRawPassword) {
+        log.info("Changing password for user: {}", username);
         User user = findByUsername(username);
         user.setPassword(passwordEncoder.encode(newRawPassword));
-        return userRepository.save(user);
+        User updatedUser = userRepository.save(user);
+        log.debug("Password changed for user: {}", updatedUser.getUsername());
+        return updatedUser;
     }
 }
