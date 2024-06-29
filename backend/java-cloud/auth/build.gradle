@@ -47,6 +47,10 @@ dependencies {
     implementation 'org.springframework:spring-messaging:6.1.9'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
     implementation 'org.springframework.boot:spring-boot-starter-validation:3.3.1'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation 'org.slf4j:slf4j-api:2.0.13'
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    testImplementation 'ch.qos.logback:logback-classic:1.5.6'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
