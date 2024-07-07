@@ -6,8 +6,8 @@ import ru.soigo.auth.model.User;
 /**
  * Service interface defining authentication operations.
  * <p>
- * This interface provides methods for user registration, login, and refreshing
- * authentication tokens.
+ * This interface provides methods for user registration, login, refreshing
+ * authentication tokens, and logging out.
  * </p>
  */
 public interface AuthService {
@@ -36,4 +36,26 @@ public interface AuthService {
      * @return A PairToken containing new access and refresh tokens.
      */
     PairToken updatePairTokenByRefreshToken(String refreshToken);
+
+    /**
+     * Logs out the current device using the provided access token.
+     * <p>
+     * This method invalidates the access token, effectively logging out the user
+     * from the current device.
+     * </p>
+     *
+     * @param accessToken The access token of the current device to be logged out.
+     */
+    void logoutCurrentDevice(String accessToken);
+
+    /**
+     * Logs out from all devices using the provided access token.
+     * <p>
+     * This method invalidates all access tokens associated with the user, effectively
+     * logging out the user from all devices.
+     * </p>
+     *
+     * @param accessToken The access token used to identify the user and log out from all devices.
+     */
+    void logoutAllDevice(String accessToken);
 }
