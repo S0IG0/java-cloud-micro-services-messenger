@@ -1,6 +1,7 @@
 package ru.soigo.auth.jwt.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.List;
  * This service provides methods for managing JWT tokens in Redis,
  * including adding, removing, and retrieving tokens associated with a specific username.
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RedisServiceImpl implements RedisService {
@@ -24,7 +26,9 @@ public class RedisServiceImpl implements RedisService {
      */
     @Override
     public void addToken(String username, String tokenUUID) {
+        log.info("Adding token for username: {}", username);
         listOps.rightPush(username, tokenUUID);
+        log.debug("Token {} added for username: {}", tokenUUID, username);
     }
 
     /**
@@ -32,7 +36,9 @@ public class RedisServiceImpl implements RedisService {
      */
     @Override
     public void removeToken(String username, String tokenUUID) {
+        log.info("Removing token for username: {}", username);
         listOps.remove(username, 0, tokenUUID);
+        log.debug("Token {} removed for username: {}", tokenUUID, username);
     }
 
     /**
@@ -40,7 +46,9 @@ public class RedisServiceImpl implements RedisService {
      */
     @Override
     public void removeAllTokens(String username) {
+        log.info("Removing all tokens for username: {}", username);
         redisTemplate.delete(username);
+        log.debug("All tokens removed for username: {}", username);
     }
 
     /**
@@ -48,6 +56,9 @@ public class RedisServiceImpl implements RedisService {
      */
     @Override
     public List<String> getAllTokens(String username) {
-        return listOps.range(username, 0, -1);
+        log.info("Retrieving all tokens for username: {}", username);
+        List<String> tokens = listOps.range(username, 0, -1);
+        log.debug("Retrieved tokens for username {}: {}", username, tokens);
+        return tokens;
     }
 }
