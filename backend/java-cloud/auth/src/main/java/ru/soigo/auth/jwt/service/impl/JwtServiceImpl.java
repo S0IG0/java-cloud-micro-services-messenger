@@ -157,6 +157,14 @@ public class JwtServiceImpl implements JwtService {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getUUIDFormToken(String token) {
+        return parseClaims(token).getId();
+    }
+
+    /**
      * Generates a token with the given parameters.
      *
      * @param uuid       the unique identifier for the token.

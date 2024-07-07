@@ -68,4 +68,15 @@ public interface JwtService {
      * @return the claims extracted from the token.
      */
     Claims parseClaims(String token);
+
+    /**
+     * Extracts the UUID from the provided token.
+     * <p>
+     * This method retrieves the unique identifier embedded within the token.
+     * </p>
+     *
+     * @param token the token to extract the UUID from.
+     * @return the UUID contained within the token.
+     */
+    String getUUIDFormToken(String token);
 }
