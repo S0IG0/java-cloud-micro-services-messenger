@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.soigo.auth.jwt.dto.PairToken;
 import ru.soigo.auth.jwt.service.JwtService;
+import ru.soigo.auth.jwt.service.RedisService;
 import ru.soigo.auth.model.User;
 import ru.soigo.auth.service.AuthService;
 import ru.soigo.auth.service.UserService;
@@ -26,6 +27,7 @@ import ru.soigo.auth.service.UserService;
 public class AuthServiceImpl implements AuthService {
     final UserService userService;
     final JwtService jwtService;
+    final RedisService redisService;
     final PasswordEncoder passwordEncoder;
 
     /**
@@ -73,4 +75,30 @@ public class AuthServiceImpl implements AuthService {
         log.debug("Generated new tokens for user {}: {}", username, pairToken);
         return pairToken;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void logoutCurrentDevice(String accessToken) {
+        String username = jwtService.getUsernameFromToken(accessToken);
+        String uuid = jwtService.getUUIDFormToken(accessToken);
+
+        log.info("Logging out current device for user: {}", username);
+        redisService.removeToken(username, uuid);
+        log.debug("Token with UUID {} removed for user: {}", uuid, username);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void logoutAllDevice(String accessToken) {
+        String username = jwtService.getUsernameFromToken(accessToken);
+
+        log.info("Logging out all devices for user: {}", username);
+        redisService.removeAllTokens(username);
+        log.debug("All tokens removed for user: {}", username);
+    }
+
 }
