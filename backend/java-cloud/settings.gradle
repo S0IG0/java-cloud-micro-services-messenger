@@ -3,3 +3,4 @@ rootProject.name = 'java-cloud'
 include("auth")
 include("gateway")
 include("eureka-server")
+include("config-server")
