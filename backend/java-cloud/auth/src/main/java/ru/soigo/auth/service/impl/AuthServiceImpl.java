@@ -70,6 +70,11 @@ public class AuthServiceImpl implements AuthService {
             throw new JwtException("Invalid refresh token");
         }
         String username = jwtService.getUsernameFromToken(refreshToken);
+        String uuid = jwtService.getUUIDFormToken(refreshToken);
+
+        redisService.removeToken(username, uuid);
+        log.debug("Token with UUID {} removed for user: {}", uuid, username);
+
         User findUser = userService.findByUsername(username);
         PairToken pairToken = jwtService.generatePairToken(findUser);
         log.debug("Generated new tokens for user {}: {}", username, pairToken);
